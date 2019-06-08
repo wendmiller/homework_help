@@ -2,7 +2,7 @@
 to get help with my homework
 
 
-This home requires several preset gif buttons using api on giphy.
+This homework requires several preset gif buttons using api on giphy.
 
 Needs to have the ability to pause each gif.
 
