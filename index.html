@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Giftastic</title>
+</head>
+<body>
+        <button data-comedy="Red Dwarf">Red Dwarf</button>
+        <button data-comedy="Garth Darkplace">Darkplace</button>
+        <button data-comedy="IT Crowd">IT Crowd</button>
+        <button data-comedy="Mighty Boosh">The Mighty Boosh</button>
+        <button data-comedy="Absolutely Fabulous">Absolutely Fabulous</button>
+        <button data-comedy="Spaced">Spaced</button>
+        <button data-comedy="Black Books">Black Books</button>
+        <button data-comedy="The Office UK">The Office UK</button>
+        <button data-comedy="Doctor Who">Doctor Who</button>
+        <button data-comedy="Father Ted">Father Ted</button>
+
+<!-- Comedy Select Box -->
+        <form id="comedy-form">
+            <label for="artist-input">Choose Your Comedy</label>
+            
+            <input type="text" id="comedy-input"><br>
+            <!-- Submit Button -->
+            <input id="select-comedy" type="submit" value="GO!">
+        </form>
+        
+        <div id="comedy-div"></div>
+
+        <div id="gifs-appear-here">
+        </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script type="text/javascript">
+             
+              $("button").on("click", function() {
+               
+                var comedy = $(this).attr("data-comedy");
+
+                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+                    comedy + "&api_key=Pn9cLUzYaxN3wjyUGKJXFCTX7Im9hAxJ&limit=10"
+
+                
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+      })
+
+// placing gifs on page
+
+.then(function(response) {
+          console.log(queryURL);
+
+          console.log(response);
+          var results = response.data;
+
+          $("#gifs-appear-here").empty();
+         
+
+         for (var i = 0; i < results.length; i++) {
+
+            var comedyDiv = $("<div>");
+
+            var p = $("<p>").text("Rating: " + results[i].rating);
+
+            var comedyImage = $("<img>");
+        
+            comedyImage.attr("src", results[i].images.fixed_height.url);
+
+            comedyDiv.append(p);
+            comedyDiv.append(comedyImage);
+
+            $("#gifs-appear-here").prepend(comedyDiv);
+          }
+
+          
+        });
+    });
+
+// trying to add the ability to pause gif.  This is the code I have from a reference but I don't know how to tie it in
+// <img src="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-still="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-animate="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" data-state="still" class="gif">
+// the giphy likk is from reference code.  How do I adapt it to my source url from the source on line 41.
+
+
+
+// I was told to create a new div class but just adding this just messes up all the code.
+// <div id="gif"></div>
+
+
+//     $(".gif").on("click", function() {
+//       var state = $(this).attr("data-state");
+//       if (state === "still") {
+//         $(this).attr("src", $(this).attr("data-animate"));
+//         $(this).attr("data-state", "animate");
+//       } else {
+//         $(this).attr("src", $(this).attr("data-still"));
+//         $(this).attr("data-state", "still"); 
+
+  </script>
+</body>
+
+</html>
